@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       var Hook = {
+           hooks: {},
+           register: function(name,callback){
+               if(typeof(Hook.hooks[name]) == 'undefined'){
+                    console.log("x")
+                   Hook.hooks[name] = []
+               }
+               Hook.hooks[name].push(callback);
+           },
+        run: function( name, arguments ) {
+           var i = 0;
+           if( typeof(Hook.hooks[name]) !== 'undefined') {
+             for( ; typeof(Hook.hooks[name][i]) != 'undefined'; i++ ) {
+                 console.log(i)
+                 console.log( Hook.hooks[name][i](arguments) )
+                 
+               if( Hook.hooks[name][i]( arguments ) != true ) { break;}
+             }
+           }
+         }
+       };
+        Hook.register('quit', function( args ) {
+            console.log( 'Bye!-1' );
+            return true;
+        });
+        Hook.register('quit', function( args ) {
+            console.log( 'Bye!-2' );
+            return true;
+        });
+        Hook.register('quit', function( args ) {
+            console.log( 'Bye!-3' );
+            console.log(args)
+            return true;
+        });
+        // Hook.run('quit', ['All Done','ces'])
+        let dom = document.createElement('div');
+        console.dir(dom)
+        for(let key in dom){
+            console.log(key)
+        }
+    </script>
+</body>
+</html>
